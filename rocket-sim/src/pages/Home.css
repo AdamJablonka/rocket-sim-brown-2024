@@ -1,0 +1,14 @@
+.top-section {
+    height: 100vh; /* Full viewport height */
+    width: 100vw; /* Full viewport width */
+    background: url('../assets/rocket-gif.gif') no-repeat center center;
+    background-size: cover; /* Cover the entire viewport */
+    margin-bottom: -15px;
+}
+
+.second-section {
+    height: 100vh; /* Full viewport height */
+    width: 100vw; /* Full viewport width */
+    background: url('../assets/rocket-gif-2.gif') no-repeat center center;
+    background-size: cover; /* Cover the entire viewport */
+}

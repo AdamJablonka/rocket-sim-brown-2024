@@ -1,0 +1,25 @@
+.simulator-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh; /* Adjust if needed */
+    text-align: center;
+}
+
+.centered-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 600px; /* Adjust height as necessary */
+}
+
+.simulator-container h1 {
+    margin: 20px 0;
+}
+
+.canvas {
+    width: 600px;
+    height: 600px;
+    border: 1px solid #000000;
+}

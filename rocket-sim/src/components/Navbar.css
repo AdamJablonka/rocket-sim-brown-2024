@@ -1,0 +1,23 @@
+nav {
+    display: flex;
+    align-items: center;
+}
+
+nav img {
+    width: 50px;  /* Resize the logo */
+    height: 50px; /* Adjust the size to your preference */
+    margin-right: 20px; /* Adds spacing between the logo and the first link */
+}
+
+nav a {
+    color: black;       /* Set the text color to black */
+    text-decoration: none; /* Removes the underline */
+    margin-right: 15px; /* Add spacing between the links */
+    transition: color 0.3s; /* Smooth transition for hover effect */
+}
+
+nav a:hover {
+    color: white; /* Changes text color to white on hover */
+}
+
+/* Additional styling, if needed, can be added here */
