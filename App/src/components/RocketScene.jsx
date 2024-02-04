@@ -8,12 +8,12 @@ import InfoDisplay from "./InfoDisplay";
 const TestScene = () => {
   const [gameOn, setGameOn] = useState(false);
   const gameOnRef = useRef(gameOn);
-  const [direction, setDirection] = useState(90);
-  const directionRef = useRef(direction);
-  const [thrust, setThrust] = useState(88.8);
-  const thrustRef = useRef(thrust);
-  const [fuelMass, setFuelMass] = useState(2);
-  const fuelMassRef = useRef(fuelMass);
+  // const [direction, setDirection] = useState(90);
+  // const directionRef = useRef(direction);
+  // const [thrust, setThrust] = useState(88.8);
+  // const thrustRef = useRef(thrust);
+  // const [fuelMass, setFuelMass] = useState(2);
+  // const fuelMassRef = useRef(fuelMass);
 
   const [rocketData, setRocketData] = useState({
     g: 5,
@@ -22,7 +22,7 @@ const TestScene = () => {
     velX: 0,
     velY: 0,
     direction: 90,
-    thrust: 70,
+    thrust: 89,
     thrustX: 0,
     thrustY: 0,
     dragX: 0,
@@ -31,6 +31,7 @@ const TestScene = () => {
     forceY: 0,
     dryMass: 16,
     fuelMass: 2,
+    maxFuelMass: 2,
   });
   const rocketDataRef = useRef(rocketData);
 
@@ -97,7 +98,7 @@ const TestScene = () => {
 
   const dryMass = 16;
   // var fuelMass = 4;
-  var rocketMass = dryMass + fuelMass;
+  // var rocketMass = dryMass + fuelMass;
 
   var burnRate = 0.01;
 
@@ -221,7 +222,7 @@ const TestScene = () => {
     forceX = dragX + thrustX;
     forceY = dragY + thrustY;
 
-    rocketMass = dryMass + rocketDataRef.current.fuelMass;
+    const rocketMass = dryMass + rocketDataRef.current.fuelMass;
 
     velX += (forceX / rocketMass) * dt;
     velY += (forceY / rocketMass) * dt;
@@ -374,13 +375,13 @@ const TestScene = () => {
         // rocket.position.y += 0.01; // Move the rocket up slowly
         rocketMechanics();
 
-        rocket.position.x = x;
-        rocket.position.y = y;
+        rocket.position.x = rocketDataRef.current.x;
+        rocket.position.y = rocketDataRef.current.y;
 
         rocket.rotation.z =
           (rocketDataRef.current.direction - 90) * (Math.PI / 180); // Rotate the rocket
 
-        let factor = Math.min(rocket.position / 5000, 1);
+        let factor = Math.min(rocket.position.y / 5000, 1);
         const skyBlue = new THREE.Color(0x87ceeb);
         const black = new THREE.Color(0x000000);
         const currentColor = skyBlue.lerp(black, factor);
@@ -403,7 +404,7 @@ const TestScene = () => {
             // Reset particle if it moves too far
             const distance = particle.position.distanceTo(rocket.position);
             if (distance > 16 - velY) {
-              const theta = directionRef.current * (Math.PI / 180) + Math.PI;
+              const theta = rocketDataRef.current.direction * (Math.PI / 180) + Math.PI;
               resetParticle(
                 particle,
                 3 * Math.cos(theta) + rocketDataRef.current.x,
@@ -436,8 +437,8 @@ const TestScene = () => {
     <div>
       <div ref={mountRef} />
       <InfoDisplay rocketData={rocketData} />
-      <FuelGauge currFuel={rocketData.fuelMass} maxFuel={2} />
-      <button id="start-pause-button" onClick={togglePlay}>
+      <FuelGauge currFuel={rocketDataRef.current.fuelMass} maxFuel={rocketDataRef.current.maxFuelMass} />
+      <button className="button" id="start-pause-button" onClick={togglePlay}>
         {gameOn ? "Pause" : "Resume"}
       </button>
     </div>
