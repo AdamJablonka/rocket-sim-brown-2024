@@ -1,10 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   color: whitesmoke;
 }
-
 
 .footer {
   width: 100%; /* Full width */
@@ -12,4 +11,12 @@ body {
   color: white;
   text-align: center;
   padding: 10px 0;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  background-color: grey;
+  height: 100%;
 }
