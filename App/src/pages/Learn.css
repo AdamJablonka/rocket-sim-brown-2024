@@ -1,0 +1,8 @@
+body {
+    background: url("../assets/stars.jpg");
+}
+
+.container{
+    padding-top: 60px;
+    text-align: center;
+}

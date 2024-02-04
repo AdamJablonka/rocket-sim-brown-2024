@@ -7,6 +7,7 @@ import Build from "./pages/Build";
 import Navbar from "./components/Navbar";
 import "./App.css"; // Or the path to your CSS file
 import Home from "./pages/Home";
+import Learn from "./pages/Learn";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/" element={<Home />}></Route>
           <Route path="/simulator" element={<Simulator />}></Route>
           <Route path="/build" element={<Build />}></Route>
+          <Route path="/learn" element={<Learn />}></Route>
         </Routes>
       </BrowserRouter>
       <div className="footer">© 2024 SpaceQ</div>

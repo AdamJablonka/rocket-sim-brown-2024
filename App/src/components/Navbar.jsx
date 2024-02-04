@@ -1,4 +1,4 @@
-import logo from "../assets/demo-logo.png";
+import logo from "../assets/rocket-logo.png";
 import "./Navbar.css";
 
 function Navbar() {
@@ -10,6 +10,7 @@ function Navbar() {
       <a href="/">HOME</a>
       <a href="/simulator">SIMULATOR</a>
       <a href="/build">BUILD</a>
+      <a href="/learn">LEARN</a>
     </nav>
   );
 }

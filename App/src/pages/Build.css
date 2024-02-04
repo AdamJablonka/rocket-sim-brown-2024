@@ -1,6 +1,7 @@
 .build-container {
   padding-top: 60px;
   text-align: center;
+  background: url("../assets/stars.jpg");
 }
 
 .button {
@@ -46,4 +47,8 @@
     background-color: black;
     border: 1px solid #ddd;
     text-align: center;
+  }
+
+  body{
+    background: url("../assets/stars.jpg");
   }
