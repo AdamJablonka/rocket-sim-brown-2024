@@ -1,4 +1,4 @@
-import logo from "../assets/rocket-logo.png";
+import logo from "../assets/logo.jpg";
 import "./Navbar.css";
 
 function Navbar() {
