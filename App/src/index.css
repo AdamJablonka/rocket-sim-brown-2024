@@ -1,0 +1,16 @@
+.fuel-gauge {
+    width: 50px;
+    height: 300px;
+    border: 2px solid #000;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+  }
+  
+  .fuel-level {
+    background-color: #00ff00;
+    /* height: 70%; Set this dynamically based on your fuel ratio */
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+  }
