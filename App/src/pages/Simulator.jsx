@@ -5,7 +5,7 @@ function Simulator() {
   return (
     <div className="simulator-container">
       <div className="centered-content">
-        <h1>Welcome to Rocket Simulator!</h1>
+        <h1>Operate your flight!</h1>
         <RocketScene />
         <canvas
           id="rocket-sim-canvas"

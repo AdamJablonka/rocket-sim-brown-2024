@@ -1,0 +1,29 @@
+.photo-carousel-container {
+  position: relative;
+  width: 100%;
+  text-align: center;
+}
+
+.photo-name {
+  font-size: 24px; /* Adjust size as needed */
+  margin: 16px 0; /* Spacing above and below the name */
+}
+
+.photo {
+  max-width: 100%; /* Ensures the image is responsive */
+  height: auto; /* Keeps the aspect ratio of the image */
+  margin: 0 auto; /* Centers the image */
+}
+
+.photo-description {
+  font-size: 16px; /* Adjust size as needed */
+  margin-top: 16px; /* Spacing above the description */
+}
+
+.build-container h2,
+.build-container p {
+  border: 1px solid #ccc; /* Adjust color as needed */
+  padding: 8px;
+  margin-bottom: 16px; /* Add space below the text for separation */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for floating effect */
+}

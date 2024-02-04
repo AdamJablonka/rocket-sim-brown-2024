@@ -1,35 +1,35 @@
 nav {
-    display: flex;
-    align-items: center;
-    position: fixed; /* Fix the navbar at the top of the screen */
-    top: 0; /* Align to the top */
-    left: 0; /* Align to the left */
-    width: 100%; /* Navbar should span the full width of the viewport */
-    background-color: transparent; /* Make the navbar background transparent */
-    z-index: 1000; /* Make sure the navbar is above other content */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0); /* Optional: Shadow removed for full transparency */
+  display: flex;
+  align-items: center;
+  position: fixed; /* Fix the navbar at the top of the screen */
+  top: 0; /* Align to the top */
+  left: 0; /* Align to the left */
+  width: 100%; /* Navbar should span the full width of the viewport */
+  background-color: transparent; /* Make the navbar background transparent */
+  z-index: 1000; /* Make sure the navbar is above other content */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0); /* Optional: Shadow removed for full transparency */
 }
 
 nav img {
-    width: 50px;
-    height: 50px;
-    margin-right: 20px;
+  width: 50px;
+  height: 50px;
+  margin-right: 20px;
 }
 
 nav a {
-    color: white; /* You may want to change this color if your background is dark */
-    text-decoration: none;
-    margin-right: 15px;
-    transition: color 0.3s;
+  color: white; /* You may want to change this color if your background is dark */
+  text-decoration: none;
+  margin-right: 15px;
+  transition: color 0.3s;
 }
 
 nav a:hover {
-    color: white; /* Ensure this color is visible on your background */
+  color: white; /* Ensure this color is visible on your background */
 }
 
 /* Add some padding to the nav items */
 nav > * {
-    padding: 10px 20px;
+  padding: 10px 20px;
 }
 
 /* Additional styling, if needed, can be added here */
