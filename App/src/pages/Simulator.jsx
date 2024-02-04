@@ -6,10 +6,6 @@ function Simulator() {
     <div className="simulator-container">
       <div className="centered-content">
         <RocketScene />
-        <div>
-          <h1>How to operate</h1>
-          <p>test</p>
-        </div>
       </div>
     </div>
   );
