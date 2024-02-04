@@ -355,7 +355,7 @@ const TestScene = () => {
     <div>
       <div ref={mountRef} />
       <FuelGauge currFuel={fuelMass} maxFuel={2} />
-      <button style={{ position: "absolute" }} onClick={togglePlay}>
+      <button class="button" id="start-pause-button" onClick={togglePlay}>
         {gameOn ? "Pause" : "Resume"}
       </button>
     </div>
