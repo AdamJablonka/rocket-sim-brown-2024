@@ -14,6 +14,14 @@
   background-size: cover;
 }
 
+.third-section {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  background: url("../assets/pillars.png") no-repeat center center;
+  background-size: cover;
+}
+
 .floating-text {
   position: absolute;
   top: 50%; /* Position at the middle of the section vertically */
@@ -25,6 +33,7 @@
   z-index: 10; /* Ensure it's above the background image */
   box-sizing: border-box; /* Include padding in the width calculation */
   overflow: hidden; /* In case content exceeds the div size */
+  margin-left: 10%; /* Add left margin to move the slider away from the left edge */
 }
 
 /* Font Colors */
@@ -32,3 +41,5 @@
 .floating-text p {
   color: whitesmoke;
 }
+
+
