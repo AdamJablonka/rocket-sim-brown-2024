@@ -14,3 +14,13 @@
     position: absolute;
     bottom: 0;
   }
+
+  #start-pause-button {
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%); 
+    padding: 10px;
+    border-radius: 10px;
+    z-index: 999;
+  }
