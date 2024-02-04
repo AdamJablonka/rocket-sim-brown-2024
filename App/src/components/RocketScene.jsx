@@ -8,10 +8,10 @@ import InfoDisplay from "./InfoDisplay";
 const TestScene = () => {
   const [gameOn, setGameOn] = useState(false);
   const gameOnRef = useRef(gameOn);
-  // const [direction, setDirection] = useState(90);
-  // const directionRef = useRef(direction);
-  // const [thrust, setThrust] = useState(88.8);
-  // const thrustRef = useRef(thrust);
+  const [direction, setDirection] = useState(90);
+  const directionRef = useRef(direction);
+  const [thrust, setThrust] = useState(88.8);
+  const thrustRef = useRef(thrust);
   const [fuelMass, setFuelMass] = useState(2);
   const fuelMassRef = useRef(fuelMass);
 
@@ -125,22 +125,37 @@ const TestScene = () => {
     switch (e.key) {
       case "Right":
       case "d":
-        setRocketData((prevData) => { return {...prevData, direction: prevData.direction - 1} });
+        setRocketData((prevData) => {
+          return { ...prevData, direction: prevData.direction - 1 };
+        });
         // setDirection((prevDirection) => prevDirection - 1);
         break;
       case "Left":
       case "a":
-        setRocketData((prevData) => { return {...prevData, direction: prevData.direction + 1} });
+        setRocketData((prevData) => {
+          return { ...prevData, direction: prevData.direction + 1 };
+        });
         // setDirection((prevDirection) => prevDirection + 1);
         break;
       case "Up":
       case "w":
-        setRocketData((prevData) => { return {...prevData, thrust: (prevData.thrust < maxThrust ? prevData.thrust + 0.5 : maxThrust)} });
+        setRocketData((prevData) => {
+          return {
+            ...prevData,
+            thrust:
+              prevData.thrust < maxThrust ? prevData.thrust + 0.5 : maxThrust,
+          };
+        });
         // setThrust((prevThrust) => (prevThrust < maxThrust ? prevThrust + 0.5 : maxThrust));
         break;
       case "Down":
       case "s":
-        setRocketData((prevData) => { return {...prevData, thrust: (prevData.thrust > minThrust ? prevData.thrust - 0.5 : 0 )} });
+        setRocketData((prevData) => {
+          return {
+            ...prevData,
+            thrust: prevData.thrust > minThrust ? prevData.thrust - 0.5 : 0,
+          };
+        });
         // setThrust((prevThrust) => (prevThrust > minThrust ? prevThrust - 0.5 : 0 ));
         break;
       default:
@@ -149,7 +164,7 @@ const TestScene = () => {
   };
 
   function updateDragCoeff(y) {
-    return 0.5 * Math.exp(-y/10000);
+    return 0.5 * Math.exp(-y / 10000);
   }
 
   function rocketMechanics() {
@@ -160,23 +175,39 @@ const TestScene = () => {
 
     // gravity
     if (y < 0) {
-      setRocketData((prevData) => { return {...prevData, velY: 0, y: 0} });
+      setRocketData((prevData) => {
+        return { ...prevData, velY: 0, y: 0 };
+      });
       velY = 0;
       y = 0;
     }
-    setRocketData((prevData) => { return {...prevData, velY: prevData.velY - g * dt} });
+    setRocketData((prevData) => {
+      return { ...prevData, velY: prevData.velY - g * dt };
+    });
     velY -= g * dt;
 
     // engine thrust
     if (rocketDataRef.current.fuelMass >= 0) {
-      thrustX = Math.cos((rocketDataRef.current.direction * Math.PI) / 180) * rocketDataRef.current.thrust;
-      thrustY = Math.sin((rocketDataRef.current.direction * Math.PI) / 180) * rocketDataRef.current.thrust;
+      thrustX =
+        Math.cos((rocketDataRef.current.direction * Math.PI) / 180) *
+        rocketDataRef.current.thrust;
+      thrustY =
+        Math.sin((rocketDataRef.current.direction * Math.PI) / 180) *
+        rocketDataRef.current.thrust;
 
       // fuelMassRef.current -= thrustRef.current * burnRate * dt;
       // setFuelMass(fuelMassRef.current);
-      setRocketData((prevData) => { return {...prevData, fuelMass: prevData.fuelMass - rocketDataRef.current.thrust * burnRate * dt} });
+      setRocketData((prevData) => {
+        return {
+          ...prevData,
+          fuelMass:
+            prevData.fuelMass - rocketDataRef.current.thrust * burnRate * dt,
+        };
+      });
     } else {
-      setRocketData((prevData) => { return {...prevData, thrust: 0, thrustX: 0, thrustY: 0} });
+      setRocketData((prevData) => {
+        return { ...prevData, thrust: 0, thrustX: 0, thrustY: 0 };
+      });
       thrustX = 0;
       thrustY = 0;
     }
@@ -195,24 +226,53 @@ const TestScene = () => {
     velX += (forceX / rocketMass) * dt;
     velY += (forceY / rocketMass) * dt;
 
-    console.log("T/W: " + (rocketDataRef.current.thrust/(rocketMass*g)).toFixed(2) + 
-    "; x: " + x.toFixed(2) + "; y: " + y.toFixed(2) + 
-    "; velX: " + velX.toFixed(2) + "; velY: " + velY.toFixed(2) + 
-    "; thrustX: " + thrustX.toFixed(2) + "; thrustY: " + thrustY.toFixed(2) + 
-    "; dragX: " + dragX.toFixed(2) + "; dragY: " + dragY.toFixed(2) + 
-    "; forceX: " + forceX.toFixed(2) + "; forceY: " + forceY.toFixed(2) + 
-    "; fuelMass: " + rocketDataRef.current.fuelMass.toFixed(2) + "; rocketMass: " + rocketMass.toFixed(2));
+    console.log(
+      "T/W: " +
+        (rocketDataRef.current.thrust / (rocketMass * g)).toFixed(2) +
+        "; x: " +
+        x.toFixed(2) +
+        "; y: " +
+        y.toFixed(2) +
+        "; velX: " +
+        velX.toFixed(2) +
+        "; velY: " +
+        velY.toFixed(2) +
+        "; thrustX: " +
+        thrustX.toFixed(2) +
+        "; thrustY: " +
+        thrustY.toFixed(2) +
+        "; dragX: " +
+        dragX.toFixed(2) +
+        "; dragY: " +
+        dragY.toFixed(2) +
+        "; forceX: " +
+        forceX.toFixed(2) +
+        "; forceY: " +
+        forceY.toFixed(2) +
+        "; fuelMass: " +
+        rocketDataRef.current.fuelMass.toFixed(2) +
+        "; rocketMass: " +
+        rocketMass.toFixed(2)
+    );
 
     x += velX;
     y += velY;
 
-    setRocketData((prevData) => { return {
-      ...prevData, x: x, y: y, velX: velX, velY: velY, 
-      thrustX: thrustX, thrustY: thrustY, 
-      dragX: dragX, dragY: dragY, 
-      forceX: forceX, forceY: forceY
-    } });
-
+    setRocketData((prevData) => {
+      return {
+        ...prevData,
+        x: x,
+        y: y,
+        velX: velX,
+        velY: velY,
+        thrustX: thrustX,
+        thrustY: thrustY,
+        dragX: dragX,
+        dragY: dragY,
+        forceX: forceX,
+        forceY: forceY,
+      };
+    });
   }
 
   const mountRef = useRef(null);
@@ -317,9 +377,10 @@ const TestScene = () => {
         rocket.position.x = x;
         rocket.position.y = y;
 
-        rocket.rotation.z = (rocketDataRef.current.direction - 90) * (Math.PI / 180); // Rotate the rocket
+        rocket.rotation.z =
+          (rocketDataRef.current.direction - 90) * (Math.PI / 180); // Rotate the rocket
 
-        let factor = Math.min(rocket.position.y / 5000, 1);
+        let factor = Math.min(rocket.position / 5000, 1);
         const skyBlue = new THREE.Color(0x87ceeb);
         const black = new THREE.Color(0x000000);
         const currentColor = skyBlue.lerp(black, factor);
@@ -345,8 +406,8 @@ const TestScene = () => {
               const theta = directionRef.current * (Math.PI / 180) + Math.PI;
               resetParticle(
                 particle,
-                3 * Math.cos(theta) + x,
-                3 * Math.sin(theta) + y
+                3 * Math.cos(theta) + rocketDataRef.current.x,
+                3 * Math.sin(theta) + rocketDataRef.current.y
               );
             }
           });
@@ -376,7 +437,9 @@ const TestScene = () => {
       <div ref={mountRef} />
       <InfoDisplay rocketData={rocketData} />
       <FuelGauge currFuel={rocketData.fuelMass} maxFuel={2} />
-      <button id="start-pause-button" onClick={togglePlay}>{gameOn ? "Pause" : "Resume"}</button>
+      <button id="start-pause-button" onClick={togglePlay}>
+        {gameOn ? "Pause" : "Resume"}
+      </button>
     </div>
   );
 };
