@@ -1,4 +1,4 @@
-import "./simulator.css";
+import "./Simulator.css";
 import RocketScene from "../components/RocketScene";
 
 function Simulator() {
