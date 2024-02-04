@@ -1,25 +1,41 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    background-color: grey; 
+    height: 100%; 
+}
+
 .simulator-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh; /* Adjust if needed */
+    justify-content: flex-start; 
+    padding-top: 60px; 
     text-align: center;
+    width: 100%; 
+    flex-grow: 1; 
+    margin-bottom: 60px; 
 }
 
 .centered-content {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    height: 600px; /* Adjust height as necessary */
+    width: 100%; 
 }
 
 .simulator-container h1 {
-    margin: 20px 0;
+    margin: 20px 0 10px 0; 
+    color: white;
+}
+
+.simulator-container p {
+    color: white;
 }
 
 .canvas {
     width: 600px;
     height: 600px;
     border: 1px solid #000000;
+    margin: 10px 0; 
 }

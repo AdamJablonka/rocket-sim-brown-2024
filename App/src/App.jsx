@@ -19,6 +19,7 @@ function App() {
           <Route path="/build" element={<Build />}></Route>
         </Routes>
       </BrowserRouter>
+      <div className='footer'>© 2024 SpaceQ</div>
     </div>
   );
 }

@@ -1,14 +1,38 @@
 .top-section {
-    height: 100vh; /* Full viewport height */
-    width: 100vw; /* Full viewport width */
-    background: url('../assets/rocket-gif.gif') no-repeat center center;
-    background-size: cover; /* Cover the entire viewport */
-    margin-bottom: -15px;
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    background: url('../assets/rocket-launch.gif') no-repeat center center;
+    background-size: cover;
 }
 
 .second-section {
-    height: 100vh; /* Full viewport height */
-    width: 100vw; /* Full viewport width */
-    background: url('../assets/rocket-gif-2.gif') no-repeat center center;
-    background-size: cover; /* Cover the entire viewport */
+    position: relative; 
+    height: 100vh;
+    width: 100vw;
+    background: url('../assets/rocket-fly.gif') no-repeat center center;
+    background-size: cover;
 }
+
+
+.floating-text {
+    position: absolute;
+    top: 50%; /* Position at the middle of the section vertically */
+    left: 0; /* Position from the left */
+    transform: translate(0, -50%); /* Center vertically */
+    width: 40%; /* Adjust the width as needed */
+    padding: 20px;
+    background: rgba(255, 255, 255, 0); /* Fully transparent background */
+    z-index: 10; /* Ensure it's above the background image */
+    box-sizing: border-box; /* Include padding in the width calculation */
+    overflow: hidden; /* In case content exceeds the div size */
+}
+
+/* Font Colors */
+.floating-text h1,
+.floating-text p {
+    color: whitesmoke; 
+
+}
+
+

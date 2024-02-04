@@ -2,4 +2,14 @@
 
 body {
   font-family: 'Roboto', sans-serif;
+  color: whitesmoke;
+}
+
+
+.footer {
+  width: 100%; /* Full width */
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
 }

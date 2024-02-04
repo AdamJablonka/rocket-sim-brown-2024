@@ -11,8 +11,11 @@ function Simulator() {
           height="600"
           className="canvas"
         ></canvas>
+        <div>
+          <h1>How to operate</h1>
+          <p>test</p>
+        </div>
       </div>
-      {/* Additional content can go here */}
     </div>
   );
 }
