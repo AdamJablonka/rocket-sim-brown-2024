@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 //import { useState } from 'react'
 import "./App.css";
-import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import Simulator from "./pages/Simulator";
 import Build from "./pages/Build";
 import Navbar from "./components/Navbar";
@@ -13,14 +13,14 @@ function App() {
   return (
     <div>
       <Navbar />
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/simulator" element={<Simulator />}></Route>
           <Route path="/build" element={<Build />}></Route>
           <Route path="/learn" element={<Learn />}></Route>
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
       <div className="footer">© 2024 SpaceQ</div>
     </div>
   );
