@@ -1,47 +1,42 @@
-.build-container{
-    padding-top: 60px;
-    text-align: center;
+.build-container {
+  padding-top: 60px;
+  text-align: center;
 }
 
 .button {
-    padding: 10px 20px;
-    border: 2px solid #007aff; /* Blue border color */
-    background-color: transparent;
-    color: #007aff; /* Blue text color */
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 10px; /* Space between buttons */
-    transition: background-color 0.3s, color 0.3s;
-    cursor: pointer;
-  }
-  
-  /* Change border and text color on hover and click (focus) */
-  .button:hover, .button:focus {
-    background-color: #007aff; /* Blue background color */
-    color: white; /* White text color */
-  }
-  
-  /* Container for side by side buttons */
-  .button-group {
-    display: flex;
-    justify-content: center; /* Center the buttons */
-    gap: 20px; /* Space between button groups */
-    flex-wrap: wrap; /* Wrap onto the next line if needed */
-    margin-bottom: 20px; /* Space below the button group */
-  }
-  
-  /* Style for the checkout button */
-  .checkout-button {
-    /* Add specific styles for checkout button if needed */
-  }
+  padding: 10px 20px;
+  border: 2px solid #007aff; /* Blue border color */
+  background-color: transparent;
+  color: white; /* Blue text color */
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 10px; /* Space between buttons */
+  transition: background-color 0.3s, color 0.3s;
+  cursor: pointer;
+}
 
-  .button.selected {
-    background-color: #007aff; /* Blue background for selected button */
-    color: white; /* White text for selected button */
-    border-color: #007aff; /* Blue border for selected button */
-  }
-  
-  /* Rest of your styles */
-  
+/* Change border and text color on hover and click (focus) */
+.button:hover,
+.button:focus {
+  background-color: #007aff; /* Blue background color */
+  color: white; /* White text color */
+}
+
+/* Container for side by side buttons */
+.button-group {
+  display: flex;
+  justify-content: center; /* Center the buttons */
+  gap: 20px; /* Space between button groups */
+  flex-wrap: wrap; /* Wrap onto the next line if needed */
+  margin-bottom: 20px; /* Space below the button group */
+}
+
+.button.selected {
+  background-color: #007aff; /* Blue background for selected button */
+  color: white; /* White text for selected button */
+  border-color: #007aff; /* Blue border for selected button */
+}
+
+/* Rest of your styles */
