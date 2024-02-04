@@ -106,8 +106,6 @@ function Build() {
 
       <h2>Engineer your Flight!</h2>
       <form onSubmit={handleSubmit}>
-        <h2>Engineer your Flight!</h2>
-
         <h3>Select your Payload</h3>
         <div className="button-group">
           {payloadData.map((item) => (
