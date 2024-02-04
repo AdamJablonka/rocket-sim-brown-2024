@@ -1,10 +1,12 @@
-import './simulator.css';
+import "./simulator.css";
+import RocketScene from "../components/RocketScene";
 
 function Simulator() {
   return (
     <div className="simulator-container">
       <div className="centered-content">
         <h1>Welcome to Rocket Simulator!</h1>
+        <RocketScene />
         <canvas
           id="rocket-sim-canvas"
           width="600"
