@@ -40,3 +40,10 @@
 }
 
 /* Rest of your styles */
+.totals-display {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: black;
+    border: 1px solid #ddd;
+    text-align: center;
+  }

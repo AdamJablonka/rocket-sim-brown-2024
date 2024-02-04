@@ -64,18 +64,55 @@ const engineData = [
   },
 ];
 
+// COST AND EMMISSIONS 
+const costsAndEmissions = {
+  payload: {
+    Satellite: { cost: 290e6, co2: 200 },
+    "Human Spacecraft": { cost: 100e6, co2: 180 }, // Ensure keys match item names exactly
+  },
+  commandModule: {
+    Apollo: { cost: 150e9, co2: 0 },
+    Dragon2: { cost: 55e6, co2: 0 },
+    Soyuz: { cost: 70e6, co2: 0 },
+  },
+  engine: {
+    Solid: { cost: 30e6, co2: 150 },
+    Liquid: { cost: 50e6, co2: 80 },
+  },
+  baseCost: 50e6, // Base cost without components
+};
+
 function Build() {
   const [selectedPayload, setSelectedPayload] = useState(null);
   const [selectedCommandModule, setSelectedCommandModule] = useState(null);
   const [selectedEngine, setSelectedEngine] = useState(null);
+  const [totals, setTotals] = useState({ cost: 0, co2: 0 });
 
   const handleSubmit = (event) => {
-    event.preventDefault(); // Prevent the default form submit action
-    console.log("Checkout with the following selections:");
-    console.log("Payload:", selectedPayload);
-    console.log("Command Module:", selectedCommandModule);
-    console.log("Engine:", selectedEngine);
-    // Add additional checkout logic here
+    event.preventDefault();
+  
+    let totalCost = costsAndEmissions.baseCost; // Base cost
+    let totalEmissions = 0; // Initialize total emissions
+  
+    // Add costs and emissions based on the selected payload
+    if (selectedPayload && costsAndEmissions.payload[selectedPayload]) {
+      totalCost += costsAndEmissions.payload[selectedPayload].cost;
+      totalEmissions += costsAndEmissions.payload[selectedPayload].co2;
+    }
+  
+    // Repeat for command module and engine
+    if (selectedCommandModule && costsAndEmissions.commandModule[selectedCommandModule]) {
+      totalCost += costsAndEmissions.commandModule[selectedCommandModule].cost;
+      // No emissions for command modules given in the example
+    }
+  
+    if (selectedEngine && costsAndEmissions.engine[selectedEngine]) {
+      totalCost += costsAndEmissions.engine[selectedEngine].cost;
+      totalEmissions += costsAndEmissions.engine[selectedEngine].co2;
+    }
+  
+    // Update state with the new totals
+    setTotals({ cost: totalCost, co2: totalEmissions });
   };
   return (
     <div className="build-container">
@@ -155,11 +192,15 @@ function Build() {
         </div>
 
         <div className="button-group">
-          <button type="submit" className="button checkout-button">
-            Check Out
-          </button>
-        </div>
+        <button type="submit" className="button checkout-button">Check Out</button>
+      </div>
       </form>
+      {totals.cost > 0 && ( // Render only if a cost has been calculated
+        <div className="totals-display">
+          <p>Total Cost: ${totals.cost.toLocaleString()}</p>
+          <p>Total CO2 Emissions: {totals.co2.toLocaleString()} tonnes</p>
+        </div>
+      )}
     </div>
   );
 }
