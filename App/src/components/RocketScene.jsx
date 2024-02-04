@@ -3,6 +3,7 @@ import * as THREE from "three";
 import { GLTFLoader } from "three-stdlib";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import FuelGauge from "./FuelGauge";
+import InfoDisplay from "./InfoDisplay";
 
 const TestScene = () => {
   const [gameOn, setGameOn] = useState(false);
@@ -351,11 +352,22 @@ const TestScene = () => {
     };
   }, []);
 
+  const dummyRocketData = {
+    y: y,
+    velX: velX,
+    velY: velY,
+    thrust: thrustRef.current,
+    dryMass: dryMass,
+    fuelMass: fuelMassRef.current,
+    g: g,
+  };
+
   return (
     <div>
       <div ref={mountRef} />
       <FuelGauge currFuel={fuelMass} maxFuel={2} />
-      <button class="button" id="start-pause-button" onClick={togglePlay}>
+      <InfoDisplay rocketData={dummyRocketData}/>
+      <button className="button" id="start-pause-button" onClick={togglePlay}>
         {gameOn ? "Pause" : "Resume"}
       </button>
     </div>

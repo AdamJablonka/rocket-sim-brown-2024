@@ -24,3 +24,21 @@
     border-radius: 10px;
     z-index: 999;
   }
+
+  #info { 
+    position: absolute; 
+    top: 50px; 
+    width: 100%; 
+    text-align: left;
+    z-index: 100; 
+    display:block; 
+    left: 0;
+    padding: 20px;
+  }
+  
+  #info p {
+    margin: 0;
+    padding: 0;
+    width: 200px;
+  
+  }
