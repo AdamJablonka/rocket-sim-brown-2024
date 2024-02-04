@@ -3,32 +3,56 @@ import * as THREE from "three";
 import { GLTFLoader } from "three-stdlib";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import FuelGauge from "./FuelGauge";
+import InfoDisplay from "./InfoDisplay";
 
 const TestScene = () => {
   const [gameOn, setGameOn] = useState(false);
   const gameOnRef = useRef(gameOn);
-  const [direction, setDirection] = useState(90);
-  const directionRef = useRef(direction);
-  const [thrust, setThrust] = useState(88.8);
-  const thrustRef = useRef(thrust);
+  // const [direction, setDirection] = useState(90);
+  // const directionRef = useRef(direction);
+  // const [thrust, setThrust] = useState(88.8);
+  // const thrustRef = useRef(thrust);
   const [fuelMass, setFuelMass] = useState(2);
   const fuelMassRef = useRef(fuelMass);
+
+  const [rocketData, setRocketData] = useState({
+    g: 5,
+    x: 0,
+    y: 0,
+    velX: 0,
+    velY: 0,
+    direction: 90,
+    thrust: 70,
+    thrustX: 0,
+    thrustY: 0,
+    dragX: 0,
+    dragY: 0,
+    forceX: 0,
+    forceY: 0,
+    dryMass: 16,
+    fuelMass: 2,
+  });
+  const rocketDataRef = useRef(rocketData);
 
   useEffect(() => {
     gameOnRef.current = gameOn; // Update ref value when gameOn changes
   }, [gameOn]);
 
-  useEffect(() => {
-    directionRef.current = direction; // Update ref value when direction changes
-  }, [direction]);
+  // useEffect(() => {
+  //   directionRef.current = direction; // Update ref value when direction changes
+  // }, [direction]);
+
+  // useEffect(() => {
+  //   thrustRef.current = thrust; // Update ref value when thrust changes
+  // }, [thrust]);
+
+  // useEffect(() => {
+  //   fuelMassRef.current = fuelMass; // Update ref value when fuelMass changes
+  // }, [fuelMass]);
 
   useEffect(() => {
-    thrustRef.current = thrust; // Update ref value when thrust changes
-  }, [thrust]);
-
-  useEffect(() => {
-    fuelMassRef.current = fuelMass; // Update ref value when fuelMass changes
-  }, [fuelMass]);
+    rocketDataRef.current = rocketData;
+  }, [rocketData]);
 
   const togglePlay = () => {
     setGameOn(!gameOn);
@@ -58,7 +82,7 @@ const TestScene = () => {
 
   // ENVIRONMENT -----------------------
   const g = 5;
-  const dragCoeff = 0.1;
+  let dragCoeff = 0.1;
   // ENVIRONMENT -----------------------
 
   // ROCKET ----------------------------
@@ -101,28 +125,32 @@ const TestScene = () => {
     switch (e.key) {
       case "Right":
       case "d":
-        setDirection((prevDirection) => prevDirection - 1);
+        setRocketData((prevData) => { return {...prevData, direction: prevData.direction - 1} });
+        // setDirection((prevDirection) => prevDirection - 1);
         break;
       case "Left":
       case "a":
-        setDirection((prevDirection) => prevDirection + 1);
+        setRocketData((prevData) => { return {...prevData, direction: prevData.direction + 1} });
+        // setDirection((prevDirection) => prevDirection + 1);
         break;
       case "Up":
       case "w":
-        setThrust((prevThrust) =>
-          prevThrust < maxThrust ? prevThrust + 0.5 : maxThrust
-        );
+        setRocketData((prevData) => { return {...prevData, thrust: (prevData.thrust < maxThrust ? prevData.thrust + 0.5 : maxThrust)} });
+        // setThrust((prevThrust) => (prevThrust < maxThrust ? prevThrust + 0.5 : maxThrust));
         break;
       case "Down":
       case "s":
-        setThrust((prevThrust) =>
-          prevThrust > minThrust ? prevThrust - 0.5 : 0
-        );
+        setRocketData((prevData) => { return {...prevData, thrust: (prevData.thrust > minThrust ? prevData.thrust - 0.5 : 0 )} });
+        // setThrust((prevThrust) => (prevThrust > minThrust ? prevThrust - 0.5 : 0 ));
         break;
       default:
         break;
     }
   };
+
+  function updateDragCoeff(y) {
+    return 0.5 * Math.exp(-y/10000);
+  }
 
   function rocketMechanics() {
     if (!gameOnRef.current) {
@@ -132,69 +160,59 @@ const TestScene = () => {
 
     // gravity
     if (y < 0) {
+      setRocketData((prevData) => { return {...prevData, velY: 0, y: 0} });
       velY = 0;
       y = 0;
     }
+    setRocketData((prevData) => { return {...prevData, velY: prevData.velY - g * dt} });
     velY -= g * dt;
 
     // engine thrust
-    if (fuelMassRef.current >= 0) {
-      thrustX =
-        Math.cos((directionRef.current * Math.PI) / 180) * thrustRef.current;
-      thrustY =
-        Math.sin((directionRef.current * Math.PI) / 180) * thrustRef.current;
+    if (rocketDataRef.current.fuelMass >= 0) {
+      thrustX = Math.cos((rocketDataRef.current.direction * Math.PI) / 180) * rocketDataRef.current.thrust;
+      thrustY = Math.sin((rocketDataRef.current.direction * Math.PI) / 180) * rocketDataRef.current.thrust;
 
-      fuelMassRef.current -= thrustRef.current * burnRate * dt;
-      setFuelMass(fuelMassRef.current);
+      // fuelMassRef.current -= thrustRef.current * burnRate * dt;
+      // setFuelMass(fuelMassRef.current);
+      setRocketData((prevData) => { return {...prevData, fuelMass: prevData.fuelMass - rocketDataRef.current.thrust * burnRate * dt} });
     } else {
+      setRocketData((prevData) => { return {...prevData, thrust: 0, thrustX: 0, thrustY: 0} });
       thrustX = 0;
       thrustY = 0;
     }
     // let velAngle = Math.atan(velY/velX);
 
     // drag, not coupled
+    dragCoeff = updateDragCoeff(y);
     dragX = -dragCoeff * velX * velX * Math.sign(velX);
     dragY = -dragCoeff * velY * velY * Math.sign(velY);
 
     forceX = dragX + thrustX;
     forceY = dragY + thrustY;
 
-    rocketMass = dryMass + fuelMassRef.current;
+    rocketMass = dryMass + rocketDataRef.current.fuelMass;
 
     velX += (forceX / rocketMass) * dt;
     velY += (forceY / rocketMass) * dt;
 
-    console.log(
-      "T/W: " +
-        Math.round((thrustRef.current / (rocketMass * g)) * 100) / 100 +
-        "; x: " +
-        Math.round(x * 100) / 100 +
-        "; y: " +
-        Math.round(y * 100) / 100 +
-        "; velX: " +
-        Math.round(velX * 100) / 100 +
-        "; velY: " +
-        Math.round(velY * 100) / 100 +
-        "; thrustX: " +
-        Math.round(thrustX * 100) / 100 +
-        "; thrustY: " +
-        Math.round(thrustY * 100) / 100 +
-        "; dragX: " +
-        Math.round(dragX * 100) / 100 +
-        "; dragY: " +
-        Math.round(dragY * 100) / 100 +
-        "; forceX: " +
-        Math.round(forceX * 100) / 100 +
-        "; forceY: " +
-        Math.round(forceY * 100) / 100 +
-        "; fuelMass: " +
-        Math.round(fuelMassRef.current * 100) / 100 +
-        "; rocketMass: " +
-        Math.round(rocketMass * 100) / 100
-    );
+    console.log("T/W: " + (rocketDataRef.current.thrust/(rocketMass*g)).toFixed(2) + 
+    "; x: " + x.toFixed(2) + "; y: " + y.toFixed(2) + 
+    "; velX: " + velX.toFixed(2) + "; velY: " + velY.toFixed(2) + 
+    "; thrustX: " + thrustX.toFixed(2) + "; thrustY: " + thrustY.toFixed(2) + 
+    "; dragX: " + dragX.toFixed(2) + "; dragY: " + dragY.toFixed(2) + 
+    "; forceX: " + forceX.toFixed(2) + "; forceY: " + forceY.toFixed(2) + 
+    "; fuelMass: " + rocketDataRef.current.fuelMass.toFixed(2) + "; rocketMass: " + rocketMass.toFixed(2));
 
     x += velX;
     y += velY;
+
+    setRocketData((prevData) => { return {
+      ...prevData, x: x, y: y, velX: velX, velY: velY, 
+      thrustX: thrustX, thrustY: thrustY, 
+      dragX: dragX, dragY: dragY, 
+      forceX: forceX, forceY: forceY
+    } });
+
   }
 
   const mountRef = useRef(null);
@@ -287,6 +305,7 @@ const TestScene = () => {
     controls.maxAzimuthAngle = Math.PI / 4; // Limit rotation to 45 degrees left
     controls.minAzimuthAngle = -Math.PI / 4;
 
+    // event listener for keyboard controls
     window.addEventListener("keydown", handleKeyDown);
 
     const animate = () => {
@@ -297,7 +316,8 @@ const TestScene = () => {
 
         rocket.position.x = x;
         rocket.position.y = y;
-        rocket.rotation.z = (directionRef.current - 90) * (Math.PI / 180); // Rotate the rocket
+
+        rocket.rotation.z = (rocketDataRef.current.direction - 90) * (Math.PI / 180); // Rotate the rocket
 
         let factor = Math.min(rocket.position.y / 5000, 1);
         const skyBlue = new THREE.Color(0x87ceeb);
@@ -354,10 +374,9 @@ const TestScene = () => {
   return (
     <div>
       <div ref={mountRef} />
-      <FuelGauge currFuel={fuelMass} maxFuel={2} />
-      <button style={{ position: "absolute" }} onClick={togglePlay}>
-        {gameOn ? "Pause" : "Resume"}
-      </button>
+      <InfoDisplay rocketData={rocketData} />
+      <FuelGauge currFuel={rocketData.fuelMass} maxFuel={2} />
+      <button id="start-pause-button" onClick={togglePlay}>{gameOn ? "Pause" : "Resume"}</button>
     </div>
   );
 };
