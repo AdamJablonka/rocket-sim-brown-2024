@@ -14,7 +14,7 @@ code {
 
 #start-pause-button {
   position: absolute;
-  top: 30px;
+  top: 50px;
   left: 50%;
   transform: translateX(-50%); 
   padding: 10px;
@@ -24,9 +24,10 @@ code {
 
 #info { 
   position: absolute; 
-  top: 10px; 
+  top: 40px; 
   width: 100%; 
   /* text-align: center;  */
+  text-align: left;
   z-index: 100; 
   display:block; 
   left: 0;

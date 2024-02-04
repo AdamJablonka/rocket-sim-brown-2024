@@ -1,20 +1,20 @@
 export default function InfoDisplay({ rocketData }) {
-  const altitudeColor = rocketData.y > 100000 ? "green" : "";
-  const velocityColor = rocketData.velX > 5 ? "green" : "";
+  const altitudeColor = rocketData.y > 2000 ? "green" : "";
+  const velocityColor = rocketData.velX > 2 ? "green" : "";
 
   return (
     <div id="info">
-      <h1>.</h1>
+      <h1>TELEMETRY</h1>
       <div>
         <p style={{ backgroundColor: altitudeColor }}>
-          Altitude: {rocketData.y.toFixed(2)}
+          ALTITUDE: {(rocketData.y/10).toFixed(0)*10}
         </p>
         <p style={{ backgroundColor: velocityColor }}>
-          velX: {rocketData.velX.toFixed(2)}; velY: {rocketData.velY.toFixed(2)}
+          VELX: {rocketData.velX.toFixed(2)}; VELY: {rocketData.velY.toFixed(2)}
         </p>
-        <p>Fuel Mass: {rocketData.fuelMass.toFixed(2)}</p>
+        <p>FUEL MASS: {rocketData.fuelMass.toFixed(2)}</p>
         <p>
-          Thrust/Weight: &nbsp;
+          THRUST/WEIGHT: &nbsp;
           {(
             rocketData.thrust /
             ((rocketData.fuelMass + rocketData.dryMass) * rocketData.g)
