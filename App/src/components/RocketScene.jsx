@@ -35,6 +35,21 @@ const TestScene = () => {
   };
 
   useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.code === "Space") {
+        event.preventDefault();
+        togglePlay();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyPress);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress); // Cleanup the event listener on component unmount
+    };
+  }, [togglePlay]); // Add togglePlay as a dependency so the effect knows when it changes
+
+  useEffect(() => {
     console.log("GameOn?", gameOn);
   }, [gameOn]);
   // let gameOn = false;
@@ -201,8 +216,38 @@ const TestScene = () => {
     renderer.setClearColor(0x87ceeb); // Sky blue background
     mountRef.current.appendChild(renderer.domElement);
 
+    const particleCount = 1000 * (1 - velY);
+    const particles = [];
+
+    const particleGeometry = new THREE.SphereGeometry(0.4, 8, 8); // Small spherical particles
+    const particleMaterial = new THREE.MeshPhongMaterial({
+      color: 0xd3d3d3,
+      transparent: true,
+      opacity: 1,
+    });
+
+    for (let i = 0; i < particleCount; i++) {
+      const particle = new THREE.Mesh(particleGeometry, particleMaterial);
+      resetParticle(particle, 0, -3);
+      particles.push(particle);
+      scene.add(particle);
+    }
+
+    function resetParticle(particle, emitterXPosition, emitterYPosition) {
+      particle.position.set(emitterXPosition, emitterYPosition, 0); // Emitter position
+      const speed = 0.01 - velY / 2 + Math.random() * 0.1; // Random speed
+      const angleRange = Math.PI / 4; // Quarter circle (90 degrees)
+      const angleOffset = -Math.PI / 4; // Offset to center the spread downwards
+      const angle = angleOffset + (Math.random() - 1.5) * angleRange; // Random direction within a quarter circle, centered downwards
+      particle.userData.velocity = new THREE.Vector3(
+        Math.cos(angle) * speed,
+        Math.sin(angle) * speed,
+        (Math.random() * 2 - 1) * speed
+      );
+    }
+
     const directionalLight = new THREE.DirectionalLight(0xffffff, 3);
-    directionalLight.position.set(0, 50, 19);
+    directionalLight.position.set(0, 35, 50);
     scene.add(directionalLight);
     const ambientLight = new THREE.AmbientLight(0xffffff, 1);
     scene.add(ambientLight);
@@ -248,12 +293,44 @@ const TestScene = () => {
       requestAnimationFrame(animate);
       if (rocket) {
         // rocket.position.y += 0.01; // Move the rocket up slowly
-
         rocketMechanics();
 
         rocket.position.x = x;
         rocket.position.y = y;
         rocket.rotation.z = (directionRef.current - 90) * (Math.PI / 180); // Rotate the rocket
+
+        let factor = Math.min(rocket.position.y / 5000, 1);
+        const skyBlue = new THREE.Color(0x87ceeb);
+        const black = new THREE.Color(0x000000);
+        const currentColor = skyBlue.lerp(black, factor);
+
+        renderer.setClearColor(currentColor);
+
+        if (gameOnRef.current) {
+          particles.forEach((particle) => {
+            particle.position.add(particle.userData.velocity);
+
+            // Define the ground plane's y position (for example, y = -5)
+            const groundY = -3;
+
+            // Check for collision with the ground plane
+            if (particle.position.y <= groundY) {
+              particle.position.y = groundY; // Reset position to ground level
+              particle.userData.velocity.y *= Math.random() * -0.04; // Reverse and dampen y velocity
+            }
+
+            // Reset particle if it moves too far
+            const distance = particle.position.distanceTo(rocket.position);
+            if (distance > 16 - velY) {
+              const theta = directionRef.current * (Math.PI / 180) + Math.PI;
+              resetParticle(
+                particle,
+                3 * Math.cos(theta) + x,
+                3 * Math.sin(theta) + y
+              );
+            }
+          });
+        }
 
         // console.log(rocket.position.x, rocket.position.y, rocket.position.z)
         camera.position.x = rocket.position.x;
