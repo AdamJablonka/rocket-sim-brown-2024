@@ -49,10 +49,11 @@ Welcome to Space Queens, an immersive web-based 3D rocket launch simulator built
 
 ## 🎮 How to Use
 
-1. Adjust rocket parameters using the control panel
-2. Click the "Launch" button to initiate the simulation
+1. Adjust rocket parameters using A and D on your keyboard for steering, and W and S to increase and decrease thrust.
+2. Click the "Resume" button or Space on your keyboard to initiate the simulation
 3. Watch your rocket soar through the 3D space environment
 4. Analyze flight data and trajectory in real-time
+5. The goal is to reach orbit!
 
 ## 🏆 Awards
 
