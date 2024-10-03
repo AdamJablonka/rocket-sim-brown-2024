@@ -31,7 +31,7 @@ Welcome to Space Queens, an immersive web-based 3D rocket launch simulator built
 
 2. Navigate to the project directory:
    ```
-   cd space-queens
+   cd rocket-sim-brown-2024
    cd App
    ```
 
