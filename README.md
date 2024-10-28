@@ -7,6 +7,10 @@ Welcome to Space Queens, an immersive web-based 3D rocket launch simulator built
 # Online demo:
 [Space Queens](https://spaceq.tech/)
 
+## 🔗 Learn More
+
+Check out our [Devpost submission](https://devpost.com/software/spacequeens) for more details about the project, including our inspiration, challenges we faced, and future plans.
+
 ## 🌟 Features
 
 - Realistic 3D rocket launch simulations
@@ -58,10 +62,6 @@ Welcome to Space Queens, an immersive web-based 3D rocket launch simulator built
 ## 🏆 Awards
 
 Space Queens won the "Best Spacey Hack" award at Hack@Brown 2024, showcasing its innovation and alignment with the hackathon's goals. The theme for that year's hackathon was space!
-
-## 🔗 Learn More
-
-Check out our [Devpost submission](https://devpost.com/software/spacequeens) for more details about the project, including our inspiration, challenges we faced, and future plans.
 
 ## 👩‍💻 Contributors
 
