@@ -61,7 +61,7 @@ Check out our [Devpost submission](https://devpost.com/software/spacequeens) for
 
 ## 🏆 Awards
 
-Space Queens won the "Best Spacey Hack" award at Hack@Brown 2024, showcasing its innovation and alignment with the hackathon's goals. The theme for that year's hackathon was space!
+Space Queens won the "Best Spacey Hack" award at Hack@Brown 2024, showcasing its innovation and alignment with the hackathon's goals. That year's main hackathon theme was space!
 
 ## 👩‍💻 Contributors
 
